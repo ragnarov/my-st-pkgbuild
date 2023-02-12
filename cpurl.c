@@ -1,10 +1,3 @@
-#include <string.h>
-#include <wchar.h>
-
-#include "st.h"
-#include "win.h"
-#include "cpurl.h"
-
 typedef struct {
     int state;
     size_t length;
