@@ -1,4 +1,5 @@
 st-*-x86_64.pkg.tar.zst
 st-*.tar.gz
+/st-*/*
 /pkg/*
 /src/*
