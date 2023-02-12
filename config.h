@@ -29,6 +29,15 @@ char *vtiden = "\033[?6c";
 static float cwscale = 1.0;
 static float chscale = 1.0;
 
+
+/*
+** Select and copy the previous url on screen (do nothing if there's no url).
+*/
+
+// From cpurl.c
+void copyurl(const Arg *arg);
+
+
 /*
  * word delimiter string
  *
@@ -147,8 +156,9 @@ static unsigned int defaultrcs = 257;
  * 7: blinking st cursor
  * 8: steady st cursor
  */
-static unsigned int cursorstyle = 1;
-static Rune stcursor = 0x2603; /* snowman ("☃") */
+static unsigned int cursorshape = 2;
+//static unsigned int cursorstyle = 1;
+//static Rune stcursor = 0x2603; /* snowman ("☃") */
 
 
 /*

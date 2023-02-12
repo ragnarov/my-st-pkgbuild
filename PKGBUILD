@@ -16,9 +16,12 @@ source=(
 https://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
 terminfo.patch
 README.terminfo.rst
-st-copyurl-multiline-20220221-0.8.5.diff
 st-blinking_cursor-20211116-2f6e597.diff
 config.h
+cpurl.c
+cpurl.h
+st.h
+Makefile
 )
 sha256sums=(
             'f36359799734eae785becb374063f0be833cf22f88b4f169cd251b99324e08e7'
@@ -27,18 +30,24 @@ sha256sums=(
             'SKIP'
             'SKIP'
             'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
             )
 _sourcedir=$pkgname-$pkgver
 _makeopts="--directory=$_sourcedir"
 
 prepare() {
-    patch --directory="$_sourcedir" --strip=0 < terminfo.patch
+#   patch --directory="$_sourcedir" --strip=0 < terminfo.patch
     cd $srcdir/$pkgname-$pkgver
-    patch -p1 < "$srcdir/st-copyurl-multiline-20220221-0.8.5.diff"
-    patch -p1 < "$srcdir/st-blinking_cursor-20211116-2f6e597.diff"
+#   patch -p1 < "$srcdir/st-copyurl-multiline-20220221-0.8.5.diff"
+#   patch -p1 < "$srcdir/st-blinking_cursor-20211116-2f6e597.diff"
 
     [ -e "${srcdir}/config.h" ] && cp "${srcdir}/config.h" "${srcdir}/${pkgname}-${pkgver}"
-
+    [ -e "${srcdir}/cpurl.c" ] && cp "${srcdir}/cpurl.c" "${srcdir}/${pkgname}-${pkgver}"
+    [ -e "${srcdir}/cpurl.h" ] && cp "${srcdir}/cpurl.h" "${srcdir}/${pkgname}-${pkgver}"
+    [ -e "${srcdir}/st.h" ] && cp "${srcdir}/st.h" "${srcdir}/${pkgname}-${pkgver}"
+    [ -e "${srcdir}/Makefile" ] && cp "${srcdir}/Makefile" "${srcdir}/${pkgname}-${pkgver}"
 }
 
 build() {

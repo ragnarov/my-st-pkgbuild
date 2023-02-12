@@ -1,3 +1,10 @@
+#include <string.h>
+#include <wchar.h>
+
+#include "st.h"
+#include "win.h"
+#include "cpurl.h"
+
 typedef struct {
     int state;
     size_t length;
@@ -45,12 +52,11 @@ int daddch(URLdfa *dfa, char c)
 ** Select and copy the previous url on screen (do nothing if there's no url).
 */
 
-void
-copyurl(const Arg *arg) {
-	int row = 0, /* row of current URL */
-		col = 0, /* column of current URL start */
-		colend = 0, /* column of last occurrence */
-		passes = 0; /* how many rows have been scanned */
+void copyurl(const Arg *arg) {
+    int row = 0, /* row of current URL */
+        col = 0, /* column of current URL start */
+        colend = 0, /* column of last occurrence */
+        passes = 0; /* how many rows have been scanned */
 
 	const char *c = NULL,
 		 *match = NULL;
