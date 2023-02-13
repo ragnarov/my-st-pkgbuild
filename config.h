@@ -69,7 +69,7 @@ static double maxlatency = 33;
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
  * attribute.
  */
-static unsigned int blinktimeout = 800;
+static unsigned int blinktimeout = 384;
 
 /*
  * thickness of underline and bar cursors
@@ -105,32 +105,33 @@ unsigned int tabspaces = 8;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	"#151515", // dark  grey
+	"#ac4142", // light red
+	"#90a959", // light green
+	"#f4bf75", // light yellow
+	"#6a9fb5", // light blue
+	"#aa759f", // light magenta
+	"#75b5aa", // light cyan
+	"#d0d0d0", // white
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	"#505050", // grey
+	"#ac4142", // red
+	"#90a959", // green
+	"#f4bf75", // yellow
+	"#6a9fb5", // blue
+	"#aa759f", // magenta
+	"#75b5aa", // cyan
+	"#f5f5f5", // yellowish white
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
 	"#cccccc",
 	"#555555",
-	"gray90", /* default foreground colour */
-	"black", /* default background colour */
+	"#949494", /* default foreground colour */
+	"#1c1c1c", /* default background colour */
+        "#f05941",
 };
 
 
@@ -140,7 +141,7 @@ static const char *colorname[] = {
  */
 unsigned int defaultfg = 258;
 unsigned int defaultbg = 259;
-unsigned int defaultcs = 256;
+unsigned int defaultcs = 260;
 static unsigned int defaultrcs = 257;
 
 /*
@@ -202,8 +203,10 @@ static MouseShortcut mshortcuts[] = {
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod4Mask
-#define TERMMOD (ControlMask|ShiftMask)
+#define MODKEY Mod1Mask
+#define TERMMOD  (ControlMask|ShiftMask)
+#define KEYCOMB1 (ControlMask|Mod1Mask)
+
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
@@ -214,12 +217,12 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
 	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
-	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
-	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+	{ KEYCOMB1,             XK_C,           clipcopy,       {.i =  0} },
+	{ KEYCOMB1,             XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,               XK_l,           copyurl,        {.i =  0} },
+	{ Mod4Mask,             XK_l,           copyurl,        {.i =  0} },
 };
 
 /*
@@ -491,3 +494,28 @@ static char ascii_printable[] =
 	" !\"#$%&'()*+,-./0123456789:;<=>?"
 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 	"`abcdefghijklmnopqrstuvwxyz{|}~";
+
+
+/**
+ * Undercurl style. Set UNDERCURL_STYLE to one of the available styles.
+ *
+ * Curly: Dunno how to draw it *shrug*
+ *  _   _   _   _
+ * ( ) ( ) ( ) ( )
+ *	 (_) (_) (_) (_)
+ *
+ * Spiky:
+ * /\  /\   /\	/\
+ *   \/  \/	  \/
+ *
+ * Capped:
+ *	_     _     _
+ * / \   / \   / \
+ *    \_/   \_/
+ */
+// Available styles
+#define UNDERCURL_CURLY 0
+#define UNDERCURL_SPIKY 1
+#define UNDERCURL_CAPPED 2
+// Active style
+#define UNDERCURL_STYLE UNDERCURL_CURLY
