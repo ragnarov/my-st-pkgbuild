@@ -205,22 +205,25 @@ static MouseShortcut mshortcuts[] = {
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD0 (ControlMask|Mod1Mask)
+#define TERMMOD1 (Mod1Mask|ShiftMask)
 static Shortcut shortcuts[] = {
-	/* mask                 keysym          function        argument */
-	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
-	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
-	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
-	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD0,             XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD0,             XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD0,             XK_Home,        zoomreset,      {.f =  0} },
-	{ TERMMOD0,             XK_c,           clipcopy,       {.i =  0} },
-	{ TERMMOD0,             XK_v,           clippaste,      {.i =  0} },
-	{ TERMMOD0,             XK_Y,           selpaste,       {.i =  0} },
-	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
-	{ TERMMOD0,             XK_Num_Lock,    numlock,        {.i =  0} },
-	{ Mod4Mask,             XK_l,           copyurl,        {.i =  0} },
-        { TERMMOD0,             XK_b,           keyboard_select,{.i =  0} },
+	/* mask                 keysym          function          argument */
+	{ XK_ANY_MOD,           XK_Break,       sendbreak,        {.i =  0} },
+	{ ControlMask,          XK_Print,       toggleprinter,    {.i =  0} },
+	{ ShiftMask,            XK_Print,       printscreen,      {.i =  0} },
+	{ XK_ANY_MOD,           XK_Print,       printsel,         {.i =  0} },
+	{ TERMMOD0,             XK_Prior,       zoom,             {.f = +1} },
+	{ TERMMOD0,             XK_Next,        zoom,             {.f = -1} },
+	{ TERMMOD0,             XK_Home,        zoomreset,        {.f =  0} },
+//	{ TERMMOD0,             XK_c,           clipcopy,         {.i =  0} },
+	{ MODKEY,               XK_c,           clipcopy,         {.i =  0} },
+//	{ TERMMOD0,             XK_v,           clippaste,        {.i =  0} },
+	{ MODKEY,               XK_v,           clippaste,        {.i =  0} },
+	{ TERMMOD0,             XK_Y,           selpaste,         {.i =  0} },
+	{ ShiftMask,            XK_Insert,      selpaste,         {.i =  0} },
+	{ TERMMOD0,             XK_Num_Lock,    numlock,          {.i =  0} },
+	{ MODKEY,               XK_l,           copyurl,          {.i =  0} },
+        { Mod1Mask,             XK_b,           keyboard_select,  { 0 }     },
 };
 
 /*
